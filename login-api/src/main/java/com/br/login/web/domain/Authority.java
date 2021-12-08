@@ -3,23 +3,30 @@ package com.br.login.web.domain;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
+import java.util.List;
 
 
+@Entity
+@Table(name = "user_roles")
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
-@Getter
-@Setter
+@Getter @Setter
 public class Authority implements GrantedAuthority {
 
-    public static final String ROLE_USER = "ROLE_USER";
-    public static final String ROLE_ADMIN = "ROLE_ADMIN";
+//    public static final String ROLE_USER = "ROLE_USER";
+//    public static final String ROLE_ADMIN = "ROLE_ADMIN";
 
-    public static final Authority USER = new Authority(ROLE_USER);
-    public static final Authority ADMIN = new Authority(ROLE_ADMIN);
+    @Id
+    private String id;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @NotNull
     private String authority;
-
 }

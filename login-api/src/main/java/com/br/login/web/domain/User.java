@@ -1,19 +1,15 @@
 package com.br.login.web.domain;
 
 import lombok.*;
-import org.hibernate.engine.internal.Collections;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Set;
 
 
-//@Entity
-//@Table(name="user")
+@Entity
+@Table(name="user")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -21,25 +17,34 @@ import java.util.Set;
 public class User implements UserDetails {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String userId;
 
-    @Column(unique = true)
+    @Column(unique = true, name = "email")
     private String email;
 
+    @NotNull
+    @Column(name = "name")
     private String name;
+
+    @NotNull
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "enabled")
     private boolean enabled;
 
+    @NotNull
+    @Column(name = "create_date")
     private long createDate;
+
+    @NotNull
+    @Column(name = "update_date")
     private long updateDate;
 
-    private ArrayList<Authority> authorities;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
+    @NotNull
+    @OneToMany
+    private Set<Authority> authorities;
 
     @Override
     public String getUsername() {
