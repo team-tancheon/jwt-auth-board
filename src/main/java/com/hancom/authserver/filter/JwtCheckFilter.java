@@ -38,7 +38,7 @@ public class JwtCheckFilter extends BasicAuthenticationFilter {
             return;
         }
 
-        VerifyResult result = jwtUtil.verify(token.split(" ")[2]);
+        VerifyResult result = jwtUtil.verify(token.substring(jwtUtil.BEARER.length()));
         if(result.isResult()){
             User user = userService.findUser(result.getUserId()).get();
 

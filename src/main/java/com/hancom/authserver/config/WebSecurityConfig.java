@@ -5,6 +5,7 @@ import com.hancom.authserver.filter.JwtCheckFilter;
 import com.hancom.authserver.service.UserService;
 
 import com.hancom.authserver.utils.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,8 +19,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private JwtUtil jwtUtil;
+
+    private JwtUtil jwtUtil = new JwtUtil();
+
+    @Autowired
     private UserService userService;
+
+    @Autowired
     private ObjectMapper objectMapper;
 
     @Bean
