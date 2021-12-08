@@ -3,6 +3,7 @@ package com.hancom.authserver.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hancom.authserver.filter.JwtCheckFilter;
 import com.hancom.authserver.service.UserService;
+
 import com.hancom.authserver.utils.JwtUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;

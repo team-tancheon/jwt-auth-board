@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequiredArgsConstructor
-@RequestMapping("/login-api/v1")
+@RequestMapping("/v1")
 @Controller
 public class UserController {
 

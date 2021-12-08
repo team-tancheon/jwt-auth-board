@@ -1,8 +1,8 @@
 package com.hancom.authserver.filter;
 
+import com.hancom.authserver.domain.User;
 import com.hancom.authserver.utils.JwtUtil;
 import com.hancom.authserver.config.VerifyResult;
-import com.hancom.authserver.domain.User;
 import com.hancom.authserver.service.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
