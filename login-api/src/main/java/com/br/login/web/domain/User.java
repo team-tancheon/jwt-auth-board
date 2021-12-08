@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 
@@ -33,7 +34,7 @@ public class User implements UserDetails {
     private long createDate;
     private long updateDate;
 
-    private Set<Authority> authorities;
+    private ArrayList<Authority> authorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
