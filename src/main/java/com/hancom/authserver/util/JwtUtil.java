@@ -1,4 +1,4 @@
-package com.hancom.authserver.utils;
+package com.hancom.authserver.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -21,17 +21,17 @@ public class JwtUtil {
     private final long  accessExpTime= 30 * 1000L; //30초
     private final long  refreshExpTime= 30 * 60 * 1000L; // 30분
 
-    public String createAccessToken(String userId){
-        return BEARER + JWT.create().withSubject(userId)
+    public String createAccessToken(Long userId) {
+        return BEARER + JWT.create().withSubject(String.valueOf(userId))
                 .withClaim("exp", System.currentTimeMillis() + accessExpTime)
                 .sign(algorithm);
     }
 
-    public VerifyResult verify(String token){
-        try{
+    public VerifyResult verify(String token) {
+        try {
             DecodedJWT decode = JWT.require(algorithm).build().verify(token);
             return VerifyResult.builder().userId(decode.getSubject()).result(true).build();
-        }catch (JWTVerificationException e){
+        } catch (JWTVerificationException e){
             DecodedJWT decode = JWT.decode(token);
             return VerifyResult.builder().userId(decode.getSubject()).result(false).build();
         }

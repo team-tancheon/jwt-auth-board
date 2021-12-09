@@ -1,7 +1,7 @@
 package com.hancom.authserver.filter;
 
 import com.hancom.authserver.domain.User;
-import com.hancom.authserver.utils.JwtUtil;
+import com.hancom.authserver.util.JwtUtil;
 import com.hancom.authserver.config.VerifyResult;
 import com.hancom.authserver.service.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,7 +40,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
         VerifyResult result = jwtUtil.verify(token.substring(jwtUtil.BEARER.length()));
         if(result.isResult()){
-            User user = userService.findUserById(result.getUserId()).get();
+            User user = userService.findUserById(result.getUserId());
 
             Authentication auth = new UsernamePasswordAuthenticationToken(
                     user, null, user.getAuthorities()

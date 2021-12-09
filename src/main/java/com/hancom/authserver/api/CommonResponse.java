@@ -1,8 +1,6 @@
 package com.hancom.authserver.api;
 
-import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
@@ -11,12 +9,16 @@ public class CommonResponse<T> extends BasicResponse {
     private final int count;
     private final T data;
 
+    public CommonResponse() {
+        this(null);
+    }
+
     public CommonResponse(T data) {
         this.data = data;
 
-        if(data instanceof List) {
+        if (data instanceof List) {
             this.count = ((List<?>) data).size();
-        }else {
+        } else {
             this.count = 1;
         }
     }

@@ -3,7 +3,7 @@ package com.hancom.authserver.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hancom.authserver.domain.User;
 import com.hancom.authserver.dto.LoginUserDto;
-import com.hancom.authserver.utils.JwtUtil;
+import com.hancom.authserver.util.JwtUtil;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -47,7 +47,7 @@ public class JwtAuthorizationFilter extends UsernamePasswordAuthenticationFilter
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         User user = (User) authResult.getPrincipal();
-        response.addHeader(jwtUtil.AUTH_HEADER, jwtUtil.BEARER + jwtUtil.createAccessToken(user.getUserId()));
+        response.addHeader(jwtUtil.AUTH_HEADER, jwtUtil.BEARER + jwtUtil.createAccessToken(user.getId()));
     }
 
     @Override

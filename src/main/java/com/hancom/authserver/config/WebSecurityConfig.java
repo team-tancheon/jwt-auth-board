@@ -5,8 +5,9 @@ import com.hancom.authserver.filter.JwtAuthenticationFilter;
 import com.hancom.authserver.filter.JwtAuthorizationFilter;
 import com.hancom.authserver.service.UserService;
 
-import com.hancom.authserver.utils.JwtUtil;
+import com.hancom.authserver.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -23,8 +24,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private JwtUtil jwtUtil = new JwtUtil();
 
-    private final UserService userService;
     private final ObjectMapper objectMapper;
+
+    @Autowired
+    private UserService userService;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -60,6 +63,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), jwtUtil, objectMapper))
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), userService, jwtUtil));
-        ;
     }
 }

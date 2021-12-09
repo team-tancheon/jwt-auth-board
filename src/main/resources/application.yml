@@ -16,7 +16,7 @@ spring:
   jpa:
     hibernate:
       dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-      ddl-auto: none
+      ddl-auto: create  # TODO - none으로 변경하고, SQL문이나 Flyway 적용할 것
     properties:
       hibernate:
         format_sql: true
