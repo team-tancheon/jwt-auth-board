@@ -3,13 +3,14 @@ package com.hancom.authserver.serviceimpl;
 import com.hancom.authserver.domain.User;
 import com.hancom.authserver.repository.UserRepository;
 import com.hancom.authserver.service.UserService;
+import com.hancom.authserver.utils.KeyProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 
@@ -21,6 +22,7 @@ public class UserServieImpl implements UserService {
 
     public User save(User user){
         if(StringUtils.isEmpty(user.getUserId())){
+            user.setUserId(KeyProvider.createKey());
             user.setCreateDate(System.currentTimeMillis());
         }
         user.setUpdateDate(System.currentTimeMillis());
@@ -28,7 +30,7 @@ public class UserServieImpl implements UserService {
     }
 
     // primary key 값으로 조회
-    public Optional<User> findUser(String userId){
+    public Optional<User> findUserById(String userId){
         return userRepository.findById(userId);
     }
 

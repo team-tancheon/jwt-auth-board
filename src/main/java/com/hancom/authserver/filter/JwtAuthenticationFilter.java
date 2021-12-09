@@ -16,12 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class JwtCheckFilter extends BasicAuthenticationFilter {
+public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
     private final UserService userService;
     private final JwtUtil jwtUtil;
 
-    public JwtCheckFilter(AuthenticationManager authenticationManager, UserService userService, JwtUtil jwtUtil) {
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, UserService userService, JwtUtil jwtUtil) {
         super(authenticationManager);
         this.userService = userService;
         this.jwtUtil = jwtUtil;
@@ -40,7 +40,7 @@ public class JwtCheckFilter extends BasicAuthenticationFilter {
 
         VerifyResult result = jwtUtil.verify(token.substring(jwtUtil.BEARER.length()));
         if(result.isResult()){
-            User user = userService.findUser(result.getUserId()).get();
+            User user = userService.findUserById(result.getUserId()).get();
 
             Authentication auth = new UsernamePasswordAuthenticationToken(
                     user, null, user.getAuthorities()

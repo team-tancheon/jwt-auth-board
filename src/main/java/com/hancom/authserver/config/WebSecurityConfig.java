@@ -1,7 +1,8 @@
 package com.hancom.authserver.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hancom.authserver.filter.JwtCheckFilter;
+import com.hancom.authserver.filter.JwtAuthenticationFilter;
+import com.hancom.authserver.filter.JwtAuthorizationFilter;
 import com.hancom.authserver.service.UserService;
 
 import com.hancom.authserver.utils.JwtUtil;
@@ -57,8 +58,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-//                .addFilter(new JwLoginFilter(jwtUtil, objectMapper))
-                .addFilter(new JwtCheckFilter(authenticationManager(), userService, jwtUtil));
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), jwtUtil, objectMapper))
+                .addFilter(new JwtAuthenticationFilter(authenticationManager(), userService, jwtUtil));
         ;
     }
 }
